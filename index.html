@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-</title>
+</head>
+<body>
+    <h1>TUGAS ROUTING DEBIAN</h1>
+    <h4>Romy Saputra Sihananda/30</h4>
+
+    <div class="container">
+        <ul>
+
+            <li>
+                <h2>TOPOLOGI</h2>
+                <img src="img/0.png" alt="">
+            </li>
+
+            <li>
+                <h2>SETTING NETWORK ADAPTER</h2>
+                <ul>
+                    <li>
+                        <p>Untuk Server yaitu debian disetting 2 adapter, Adapter 1 :<b>Host-only Adapter</b>& Adapter 2 :<b>Internal Network</b></p>
+                        <img src="img/1.png" alt="">
+                        <img src="img/2.png" alt="">
+                    </li>
+                    <li>
+                        <p>Untuk Client yaitu windows dissetting 1 adapter yaitu<b>Internal Network</b></p>
+                        <img src="img/3.png" alt="">
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <h2>SHARE INTERNET</h2>
+                <p>Share jaringan dari internet ke<b>Host-only Adapter</b></p>
+                <ol>
+                    <li id="nomor">
+                        <p>Buka<b>Control Panel > Network and Internet > Network Connections</b></p>
+                        <img src="img/4.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Kemudian click kanan di sumber internet kemudian pilih<b>Properties > Sharing</b> kemudian checkist dan<b>OK</b></p>
+                        <img src="img/5.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Click kanan di Host-only Adapter pilih<b>Properties > (TCP/IPv4)</b>, kemudian beri<b>IP NETMASK & DNS</b> kemudian<b>OK</b></p>
+                        <ul>
+                            <li>
+                                <p><b>IP : 192.168.44.1</b></p>
+                            </li>
+                            <li>
+                                <p><b>NS : 255.255.255.0</b></p>
+                            </li>
+                            <li>
+                                <p><b>DNS: 8.8.8.8</b></p>
+                            </li>
+                        </ul>
+                        <img src="img/6.png" alt="">
+                    </li>
+                </ol>
+            </li>
+
+            <li>
+                <h2>CONFIGURASI IP DEBIAN (SERVER)</h2>
+                <ol>
+                    <li id="nomor">
+                        <p>Massukan command<b>nano /etc/network/networking</b></p>
+                        <ul>
+                            <li>
+                                <p><b>enp0s3</b>adalah interface dari<b>Host-only Adapter</b>dengan configurasi</p>
+                                <ul>
+                                    <li>
+                                        <p><b>IP : 192.168.44.2</b></p>
+                                    </li>
+                                    <li>
+                                        <p><b>NS : 255.255.255.0</b></p>
+                                    </li>
+                                    <li>
+                                        <p><b>GW : 192.168.44.2</b></p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p><b>enp0s8</b>adalah interface dari<b>Internal Network</b>dengan configurasi</p>
+                                <ul>
+                                    <li>
+                                        <p><b>IP : 172.168.44.1</b></p>
+                                    </li>
+                                    <li>
+                                        <p><b>NS : 255.255.255.240</b></p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <img src="img/7.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Massukan command<b>nano /etc/resolv.conf</b>massukan<b>DNS</b>google<b>8.8.8.8</b></p>
+                        <img src="img/8.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Kemudian restart networking dengan command<b>systemctl restart networking</b></p>
+                    </li>
+                </ol>
+            </li>
+
+            <li>
+                <h2>TES CONNECTION PADA DEBIAN (SERVER)</h2>
+                <ol>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>GateWay</b>dengan command<b>ping 192.168.44.1</b></p>
+                        <img src="img/9.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>DNS google</b>dengan command<b>ping 8.8.8.8</b></p>
+                        <img src="img/10.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>google.com</b>dengan command<b>ping google.com</b></p>
+                        <img src="img/11.png" alt="">
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h2>CONFIGURASI SHARING INTERNET KE CLIENT</h2>
+                <ol>
+                    <li id="nomor">
+                        <p>Massukan command<b>nano /etc/sysctl.conf</b>, hilangkan tanda pagar dibelakang<b># net.ipv4.ip_forward=1 >> net.ipv4.ip_forward=1</b></p>
+                        <img src="img/12.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Kemudian install iptables dengan command<b>apt install iptables</b></p>
+                        <ul>
+                            <li>
+                                <p><b>iptables</b> berfungsi sebagai firewall dalam sistem operasi Linux. Dengan iptables, Anda bisa mengatur lalu lintas jaringan dalam server seperti mengizinkan, memblokir atau melewatkan koneksi masuk dan keluar, mengelola port dan lain sebagainya.</p>
+                            </li>
+                        </ul>
+                        <img src="img/13.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Sharing internet disetiap PC Client dengan command<b>iptables -t nat -A POSTROUTING -s 172.16.44.0/28 -j MASQUERADE</b></p>
+                        <ul>
+                            <li>
+                                <p><b>172.16.44.0/28</b>adalah network id di interface<b>Internal Network (enp0s8)</b></p>
+                            </li>
+                        </ul>
+                        <img src="img/14.png" alt="">
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h2>CONFIGURASI IP WINDOWS (CLIENT)</h2>
+                <ul>
+                    <li id="nomor">
+                        <p>Buka<b>Control Panel > Network and Internet Connections > Network Connections</b></p>
+                    </li>
+                    <li id="nomor">
+                        <p>Click kanan pada<b>Network Interface > Properties > (TCP/IP)</b></p>
+                    </li>
+                    <li id="nomor">
+                        <p>IP harus satu<b>Network</b>dengan IP pada interface<b>enp0s8</b>pada Server</p>
+                        <ul>
+                            <li>
+                                <p><b>IP : 172.16.44.3</b></p>
+                            </li>
+                            <li>
+                                <p><b>NS : 255.255.255.240</b></p>
+                            </li>
+                            <li>
+                                <p><b>GW : 172.16.44.1</b></p>
+                            </li>
+                            <li>
+                                <p><b>DNS : 8.8.8.8</b></p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <img src="img/15.png" alt="">
+            </li>
+            <li>
+                <h2>TES CONNECTION PADA WINDOWS (CLIENT)</h2>
+                <ol>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>GateWay</b>dengan command<b>ping 172.16.44.1</b></p>
+                        <img src="img/16.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>GateWay Server</b>dengan command<b>ping 192.168.44.1</b></p>
+                        <img src="img/17.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>DNS google</b>dengan command<b>ping 8.8.8.8</b></p>
+                        <img src="img/18.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Tes connection ke<b>google.com</b>dengan command<b>ping google.com</b></p>
+                        <img src="img/19.png" alt="">
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h2>MENYIMPAN CONFIGURASI IPTABLES PERMANENT (TIDAK HILANG SAAT REBOOT)</h2>
+                <P>Setiap perubahan<b>iptables</b>yang saya lakukan diatas bersifat tidak permanent dan akan hilang ketika server<b>reboot</b>, dan perlu disimpan agar tetap ada di saat server<b>reboot</b></P>
+                <ol>
+                    <li id="nomor">
+                        <p>Buat folder bernama<b>iptables</b>di dalam folder<b>etc</b>dengan command<b>mkdir /etc/iptables</b></p>
+                        <img src="img/20.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Save configurasi iptables didalam folder<b>/etc/iptables</b>dengan nama<b>rules.v4</b>dengan command<b>iptables-save > /etc/iptables/rules.v4</b></p>
+                        <img src="img/21.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <p>Kemudian lihat isinya dengan command<b>nano /etc/iptables/rules.v4</b></p>
+                        <img src="img/22.png" alt="">
+                        <img src="img/23.png" alt="">
+                    </li>
+                    <li id="nomor">
+                        <ul>
+                            <li>
+                                <p>Kemudian install<b>iptables-persistent</b>dengan command<b>apt-get install iptables-persistent</b></p>
+                                <img src="img/24.png" alt="">
+                            </li>
+                            <li>
+                                <p>Klick yes untuk menyimpan<b>IPv4 rules</b>di<b>/ect/iptables/rules.v4</b></p>
+                                <img src="img/25.png" alt="">
+                            </li>
+                            <li>
+                                <p>Klick yes untuk menyimpan<b>IPv6 rules</b>di<b>/ect/iptables/rules.v6</b></p>
+                                <img src="img/26.png" alt="">
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="nomor">
+                        <p>Kemudian jalankan<b>iptables-persistent</b>dengan command<b>systemctl is-enabled netfilter-persistent</b></p>
+                        <img src="img/27.png" alt="">
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+    <h1>SEKIAN</h1>
+</body>
+</html>

@@ -1,0 +1,47 @@
+*{
+    margin: 10px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+}
+h1{
+    font-size: 50px;
+}
+
+h1, h4{
+    text-align: center;
+}
+
+img{
+    height: 350px;
+}
+
+.container{
+    margin: 100px auto;
+}
+
+.container ul li{
+    list-style-type: square;
+}
+
+.container ul li p{
+    font-size: 18px;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container ul li h2{
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container ul li{
+    text-align: center;
+}
+
+#nomor{
+    list-style-type: decimal;
+    margin-left: 20px;
+}
